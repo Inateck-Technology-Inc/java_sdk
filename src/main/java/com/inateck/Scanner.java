@@ -17,6 +17,7 @@ public class Scanner {
 
      native String scan();
      native String connect(String device,String appId,String developerId,String appKey);
+     native String disconnect(String device);
      native String getBasicProperties(String device,String key);
      native String getPropertiesInfo(String device,String key);
      native String editPropertiesInfo(String device,String key,String data);
