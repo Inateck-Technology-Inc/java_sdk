@@ -1,16 +1,17 @@
 package com.inateck;
 
-public class RustJNI {
+public class Scanner {
     static {
         System.loadLibrary("java_scanner");
     }
 
     public static void main(String[] args) {
        // init();
-        RustJNI jni = new RustJNI();
+        Scanner jni = new Scanner();
         System.out.println("scan: " + jni.scan());
-        System.out.println("connect: " + jni.connect("F7:7C:4A:1F:FB:3E","com.inateck.scanner","693be162686a","SrwG8UsCC6Fp7OSCDfckFHtfnNF8MRg9CmIvDgHXoFNFRsm3uiQviNtkyOfc//+m2ZpZ32uK3Z5g83optZwpZUFlnmX9DdyvYaaOqzIUJvruixZ3AfKmA/jYKxhbAhjvMLgoW+tHyPnARkJRAMMRULnayq4BLFXm47WGxVVQFXg="));
-        System.out.println("getBarcodeProperties: " + jni.getBarcodeProperties("F7:7C:4A:1F:FB:3E"));
+        System.out.println("connect: "+jni.connect("7B:AA:8C:98:10:71","com.inateck.scanner","","") );
+        System.out.println("getBasicProperties: " + jni.getBasicProperties("7B:AA:8C:98:10:71","battery"));
+        System.out.println("getBarcodeProperties: " + jni.getBarcodeProperties("7B:AA:8C:98:10:71"));
 
     }
 
