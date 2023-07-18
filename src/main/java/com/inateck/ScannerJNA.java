@@ -2,44 +2,71 @@ package com.inateck;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
-
-import static java.lang.Thread.sleep;
 import com.sun.jna.Callback;
 
 
 public class ScannerJNA {
-    public interface CallbackInterface extends Callback {
-    }
-    public interface ScannerLibrary extends Library {
-        ScannerLibrary INSTANCE = (ScannerLibrary) Native.loadLibrary("E:\\project\\java_sdk\\src\\main\\java\\lib\\scanner_windows_64bit", ScannerLibrary.class);
 
-        String scan();
-        String connect(String device,String appId,String developerId,String appKey,Callback callback);
-        String disconnect(String device);
-        String get_basic_properties(String device,String key);
-        String get_properties_info_by_key(String device,String key);
-        String edit_properties_info_by_key(String device,String key,String data);
-        String get_all_barcode_properties(String device);
-
-        interface Callback extends CallbackInterface{
-            void call(String result);
-        }
+    static {
+        System.setProperty("jna.library.path", "/Users/inateck/Desktop/scanner/2024-3-15-scanner/scanner_sdk/java_sdk/src/main/java/lib/");
     }
 
-    public static void main(String[] args) {
-        ScannerLibrary scanner = ScannerLibrary.INSTANCE;
-        System.out.println(scanner.scan());
-        System.out.println("connect: "+scanner.connect("7B:AA:8C:98:10:71","com.inateck.scanner","","",new ScannerCallback()) );
-        System.out.println("get_basic_properties: "+scanner.get_basic_properties("7B:AA:8C:98:10:71","firmware_version"));
-        System.out.println("get_properties_info_by_key: "+scanner.get_properties_info_by_key("7B:AA:8C:98:10:71","Codabar"));
-        System.out.println("get_all_barcode_properties: "+scanner.get_all_barcode_properties("7B:AA:8C:98:10:71"));
-        System.out.println("edit_properties_info_by_key: "+scanner.edit_properties_info_by_key("7B:AA:8C:98:10:71","Codabar","1"));
+    public interface EventCallback extends Callback {
+        void call(String result);
+    }
+ 
+    public interface CLibrary extends Library {
+
+        CLibrary INSTANCE = (CLibrary) Native.loadLibrary("/Users/inateck/Desktop/scanner/2024-3-15-scanner/scanner_sdk/java_sdk/src/main/java/lib/libscanner_ble_x86_64-apple-darwin.dylib", CLibrary.class);
+
+        int inateck_scanner_ble_init(EventCallback callback);
+
+        int inateck_scanner_ble_destroy();
+
+        int inateck_scanner_ble_start_scan();
+
+        int inateck_scanner_ble_stop_scan();
+
+        String inateck_scanner_ble_get_devices();
+
+        String inateck_scanner_ble_connect(String mac, EventCallback callback);
+
+        int inateck_scanner_ble_auth(String mac);
+
+        int inateck_scanner_ble_disconnect(String mac);
+
+        String inateck_scanner_ble_get_battery(String mac);
+
+        String inateck_scanner_ble_get_hardware_version(String mac);
+
+        String inateck_scanner_ble_get_software_version(String mac);
+
+        String inateck_scanner_ble_get_setting_info(String mac);
+
+        String inateck_scanner_ble_set_setting_info(String mac, String cmd);
+
+        int inateck_scanner_ble_set_name(String mac, String name);
+
+        int inateck_scanner_ble_set_time(String mac, long time);
+
+        int inateck_scanner_ble_inventory_clear_cache(String mac);
+
+        int inateck_scanner_ble_inventory_upload_cache(String mac);
+
+        int inateck_scanner_ble_inventory_upload_cache_number(String mac);
+
+        int inateck_scanner_ble_reset(String mac);
+
+        int inateck_scanner_ble_restart(String mac);
+
+        int inateck_scanner_ble_close_all_code(String mac);
+
+        int inateck_scanner_ble_open_all_code(String mac);
+
+        int inateck_scanner_ble_reset_all_code(String mac);
+
+        String inateck_scanner_ble_sdk_version();
     }
 }
- class ScannerCallback implements ScannerJNA.ScannerLibrary.Callback{
-    @Override
-    public void call(String result) {
-        System.out.println("Callback Result: " + result);
-    }
-}
+
 
