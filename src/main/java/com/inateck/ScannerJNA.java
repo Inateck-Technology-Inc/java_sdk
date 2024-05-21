@@ -7,17 +7,13 @@ import com.sun.jna.Callback;
 
 public class ScannerJNA {
 
-    static {
-        System.setProperty("jna.library.path", "/Users/inateck/Desktop/scanner/2024-3-15-scanner/scanner_sdk/java_sdk/src/main/java/lib/");
-    }
-
     public interface EventCallback extends Callback {
         void call(String result);
     }
  
     public interface CLibrary extends Library {
 
-        CLibrary INSTANCE = (CLibrary) Native.loadLibrary("/Users/inateck/Desktop/scanner/2024-3-15-scanner/scanner_sdk/java_sdk/src/main/java/lib/libscanner_ble_x86_64-apple-darwin.dylib", CLibrary.class);
+        CLibrary INSTANCE = (CLibrary) Native.loadLibrary(System.getProperty("user.dir") + "/src/main/java/lib/libscanner_ble_x86_64-apple-darwin.dylib", CLibrary.class);
 
         int inateck_scanner_ble_init(EventCallback callback);
 
