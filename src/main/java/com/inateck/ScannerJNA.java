@@ -7,61 +7,89 @@ import com.sun.jna.Callback;
 
 public class ScannerJNA {
 
+    @FunctionalInterface
     public interface EventCallback extends Callback {
         void call(String result);
     }
  
     public interface CLibrary extends Library {
 
-        CLibrary INSTANCE = (CLibrary) Native.loadLibrary(System.getProperty("user.dir") + "/src/main/java/lib/libscanner_ble_x86_64-apple-darwin.dylib", CLibrary.class);
+        
+        CLibrary INSTANCE = (CLibrary) Native.loadLibrary(System.getProperty("user.dir") + "\\src\\main\\java\\com\\inateck\\lib\\inateck_scanner_ble.dll", CLibrary.class);
 
-        int inateck_scanner_ble_init(EventCallback callback);
+        String inateck_scanner_ble_init();
 
-        int inateck_scanner_ble_destroy();
+        String inateck_scanner_ble_set_discover_callback(EventCallback callback);
 
-        int inateck_scanner_ble_start_scan();
+        String inateck_scanner_ble_wait_available();
 
-        int inateck_scanner_ble_stop_scan();
+        String inateck_scanner_ble_start_discover();
+
+        String inateck_scanner_ble_stop_discover();
 
         String inateck_scanner_ble_get_devices();
 
-        String inateck_scanner_ble_connect(String mac, EventCallback callback);
+        String inateck_scanner_ble_connect(String deviceID);
 
-        int inateck_scanner_ble_auth(String mac);
+        String inateck_scanner_ble_check_communication(String deviceID);
 
-        int inateck_scanner_ble_disconnect(String mac);
+        String inateck_scanner_ble_auth(String deviceID);
 
-        String inateck_scanner_ble_get_battery(String mac);
+        String inateck_scanner_ble_set_code_callback(String deviceID, EventCallback callback);
 
-        String inateck_scanner_ble_get_hardware_version(String mac);
+        String inateck_scanner_ble_set_disconnect_callback(String deviceID, EventCallback callback);
 
-        String inateck_scanner_ble_get_software_version(String mac);
+        String inateck_scanner_ble_disconnect(String deviceID);
 
-        String inateck_scanner_ble_get_setting_info(String mac);
+        String inateck_scanner_ble_get_battery(String deviceID);
 
-        String inateck_scanner_ble_set_setting_info(String mac, String cmd);
+        String inateck_scanner_ble_get_hardware_version(String deviceID);
 
-        int inateck_scanner_ble_set_name(String mac, String name);
+        String inateck_scanner_ble_bee_or_shake(String deviceID);
 
-        int inateck_scanner_ble_set_time(String mac, long time);
+        String inateck_scanner_set_bee(String deviceID, int voiceTime, int silentTime, int count);
 
-        int inateck_scanner_ble_inventory_clear_cache(String mac);
+        String inateck_scanner_set_led(String deviceID, int color, int lightTime, int darkTime, int count);
 
-        int inateck_scanner_ble_inventory_upload_cache(String mac);
+        String inateck_scanner_ble_get_software_version(String deviceID);
 
-        int inateck_scanner_ble_inventory_upload_cache_number(String mac);
+        String inateck_scanner_ble_get_mac(String deviceID);
 
-        int inateck_scanner_ble_reset(String mac);
+        String inateck_scanner_ble_get_setting_info(String deviceID, int deviceType);
 
-        int inateck_scanner_ble_restart(String mac);
+        String inateck_scanner_ble_set_setting_info(String deviceID, String cmd, int deviceType);
 
-        int inateck_scanner_ble_close_all_code(String mac);
+        String inateck_scanner_ble_set_name(String deviceID, String name);
 
-        int inateck_scanner_ble_open_all_code(String mac);
+        String inateck_scanner_ble_set_time(String deviceID, long name);
 
-        int inateck_scanner_ble_reset_all_code(String mac);
+        String inateck_scanner_ble_inventory_clear_cache(String deviceID);
+
+        String inateck_scanner_ble_inventory_upload_cache(String deviceID);
+
+        String inateck_scanner_ble_inventory_upload_cache_number(String deviceID);
+
+        String inateck_scanner_ble_reset(String deviceID);
+
+        String inateck_scanner_ble_restart(String deviceID);
+
+        String inateck_scanner_ble_close_all_code(String deviceID);
+
+        String inateck_scanner_ble_open_all_code(String deviceID);
+
+        String inateck_scanner_ble_reset_all_code(String deviceID);
+
+        String inateck_scanner_ble_get_prefix(String deviceID);
+
+        String inateck_scanner_ble_set_prefix(String deviceID, byte[] prefix, int prefixLen);
+
+        String inateck_scanner_ble_get_suffix(String deviceID);
+
+        String inateck_scanner_ble_set_suffix(String deviceID, byte[] suffix, int suffixLen);
 
         String inateck_scanner_ble_sdk_version();
+
+        int inateck_scanner_ble_set_debug(int is_debug);
     }
 }
 
