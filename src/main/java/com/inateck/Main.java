@@ -1,5 +1,8 @@
 package com.inateck;
 
+// latest lib version:
+// https://github.com/Inateck-Technology-Inc/scanner_lib
+
 public class Main {
 
     static void connect(ScannerBle scanner, String deviceID) {

@@ -20,7 +20,42 @@ enum InateckDeviceType {
     ST60(13),
     ST70(14),
     P6(15),
-    ST35(16);
+    ST35(16),
+    Pro8AI(17),
+    ST45AI(18),
+    ST23AI(19),
+    ST91AI(20),
+    ST42AI(21),
+    ST54AI(22),
+    ST55AI(23),
+    ST73AI(24),
+    ST75AI(25),
+    ST43AI(26),
+    P7AI(27),
+    ST21AI(28),
+    ST60AI(29),
+    ST70AI(30),
+    P6AI(31),
+    ST35AI(32),
+    ST46(33),
+    ST46AI(34),
+    ST72(35),
+    ST72AI(36),
+    ST75S(37),
+    ST75SAI(38),
+    ST36(39),
+    ST36AI(40),
+    ST61(41),
+    ST61AI(42),
+    ST47(43),
+    ST47AI(44),
+    PBS002(45),
+    PRO8SE(46),
+    PRO8SEAI(47),
+    ST49(48),
+    ST49AI(49),
+    B560B(50),
+    PBS005AI(51);
 
     private final int value;
 
@@ -220,4 +255,13 @@ public class ScannerBle {
         return status;
     }
 
+    int sendHidText(String text) {
+        int status = CLibrary.INSTANCE.inateck_scanner_ble_send_hid_text(text);
+        return status;
+    }
+
+    String setHidOutput(String devicdID, int outputType) {
+        String status = CLibrary.INSTANCE.inateck_scanner_ble_set_hid_output(devicdID, outputType);
+        return status;
+    }   
 }
