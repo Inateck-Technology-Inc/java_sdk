@@ -14,7 +14,9 @@ public class ScannerJNA {
  
     public interface CLibrary extends Library {
 
-        
+        // latest lib version:
+        // https://github.com/Inateck-Technology-Inc/scanner_lib
+
         CLibrary INSTANCE = (CLibrary) Native.loadLibrary(System.getProperty("user.dir") + "\\src\\main\\java\\com\\inateck\\lib\\inateck_scanner_ble.dll", CLibrary.class);
 
         String inateck_scanner_ble_init();
@@ -61,7 +63,13 @@ public class ScannerJNA {
 
         String inateck_scanner_ble_set_name(String deviceID, String name);
 
-        String inateck_scanner_ble_set_time(String deviceID, long name);
+        String inateck_scanner_ble_set_time(String deviceID,
+                                         int hour,
+                                         int minute,
+                                         int second,
+                                         int year,
+                                         int month,
+                                         int day);
 
         String inateck_scanner_ble_inventory_clear_cache(String deviceID);
 
@@ -90,6 +98,10 @@ public class ScannerJNA {
         String inateck_scanner_ble_sdk_version();
 
         int inateck_scanner_ble_set_debug(int is_debug);
+
+        int inateck_scanner_ble_send_hid_text(String text);
+
+        String inateck_scanner_ble_set_hid_output(String deviceID, int outputType);
     }
 }
 
